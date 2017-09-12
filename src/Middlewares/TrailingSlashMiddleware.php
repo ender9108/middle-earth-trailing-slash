@@ -1,6 +1,6 @@
 <?php
 
-namespace EnderLab;
+namespace EnderLab\Middlewares;
 
 use GuzzleHttp\Psr7\Response;
 use Interop\Http\ServerMiddleware\DelegateInterface;
