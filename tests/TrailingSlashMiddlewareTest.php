@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\EnderLab;
 
 use EnderLab\Dispatcher\Dispatcher;
@@ -27,6 +28,15 @@ class TrailingSlashMiddlewareTest extends TestCase
     public function testWithPostRequest()
     {
         $request = new ServerRequest('POST', '/users/');
+        $delegate = new Dispatcher();
+        $middleware = new TrailingSlashMiddleware();
+        $response = $middleware->process($request, $delegate);
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+    }
+
+    public function testRootPathRequest()
+    {
+        $request = new ServerRequest('POST', '/');
         $delegate = new Dispatcher();
         $middleware = new TrailingSlashMiddleware();
         $response = $middleware->process($request, $delegate);
