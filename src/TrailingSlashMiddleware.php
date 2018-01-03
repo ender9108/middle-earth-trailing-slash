@@ -3,20 +3,20 @@
 namespace EnderLab;
 
 use GuzzleHttp\Psr7\Response;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class TrailingSlashMiddleware implements MiddlewareInterface
 {
     /**
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface    $request
+     * @param RequestHandlerInterface   $requestHandler
      *
      * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $requestHandler): ResponseInterface
     {
         $path = (string) $request->getUri()->getPath();
 
@@ -29,9 +29,9 @@ class TrailingSlashMiddleware implements MiddlewareInterface
                     ->withStatus(301);
             }
 
-            return $delegate->process($request->withUri($uri));
+            return $requestHandler->process($request->withUri($uri));
         }
 
-        return $delegate->process($request);
+        return $requestHandler->process($request);
     }
 }
