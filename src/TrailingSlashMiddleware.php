@@ -32,6 +32,7 @@ class TrailingSlashMiddleware implements MiddlewareInterface
             return $requestHandler->process($request->withUri($uri));
         }
 
-        return $requestHandler->process($request);
+        return $requestHandler
+            ->process($request);
     }
 }
