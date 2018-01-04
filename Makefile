@@ -1,4 +1,4 @@
-.PHONY: install test server help phpcbf php-cs-fixer git-commit git-push
+.PHONY: install installdev test server help phpcbf php-cs-fixer git-commit git-push
 
 .DEFAULT_GOAL= help
 
@@ -24,7 +24,10 @@ help:
 
 install: vendor ## Application install
 
-test: install ## Start unit tests
+installdev:
+    composer --dev install
+
+test: installdev phpcbf php-cs-fixer ## Start unit tests
 	php ./vendor/bin/phpunit --colors
 
 phpcbf:

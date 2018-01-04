@@ -11,8 +11,8 @@ use Psr\Http\Message\ServerRequestInterface;
 class TrailingSlashMiddleware implements MiddlewareInterface
 {
     /**
-     * @param ServerRequestInterface    $request
-     * @param RequestHandlerInterface   $requestHandler
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $requestHandler
      *
      * @return ResponseInterface
      */
@@ -29,10 +29,10 @@ class TrailingSlashMiddleware implements MiddlewareInterface
                     ->withStatus(301);
             }
 
-            return $requestHandler->process($request->withUri($uri));
+            return $requestHandler->handle($request->withUri($uri));
         }
 
         return $requestHandler
-            ->process($request);
+            ->handle($request);
     }
 }
